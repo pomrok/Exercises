@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+    default-init-method="init0"
+    default-destroy-method="dispose0">
+
+	<!-- Definition for textEditor bean using inner bean -->
+	<bean id="textEditor" class="com.tutorialspoint.inner_bean.TextEditor">
+		<property name="spellChecker">
+			<bean id="spellChecker" class="com.tutorialspoint.inner_bean.SpellChecker" />
+		</property>
+	</bean>
+	
+	<bean id="textEditor2" class="com.tutorialspoint.inner_bean.TextEditor">
+		<property name="spellChecker" ref="spellChecker2"/>	
+	</bean>
+	
+	<bean id="spellChecker2" class="com.tutorialspoint.inner_bean.SpellChecker" />
+
+</beans>

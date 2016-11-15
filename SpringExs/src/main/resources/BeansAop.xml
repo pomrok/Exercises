@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<bean id="audience" class="spring.in.action.aop.Audience" />
+
+	<bean id="Jackson" class="spring.in.action.aop.Jackson" />
+
+	<bean id="Marry" class="spring.in.action.aop.Marry" />
+
+	<bean id="contestant" class="spring.in.action.aop.GraciousContestant" />
+
+<!-- 	<aop:config> -->
+<!-- 		<aop:aspect ref="audience"> -->
+<!-- 			<aop:pointcut -->
+<!-- 				expression="execution(* spring.in.action.aop.Performer.perform(..))" -->
+<!-- 				id="performer" /> -->
+			<!-- <aop:before pointcut-ref="performer" method="takeSeates" /> -->
+			<!-- <aop:before pointcut-ref="performer" method="turnOffCellPhons" /> -->
+			<!-- <aop:after pointcut-ref="performer" method="applaud" /> -->
+			<!-- <aop:after-throwing pointcut-ref="performer" -->
+			<!-- method="demandRefund" /> -->
+<!-- 			<aop:around method="watchPerformance" pointcut-ref="performer" /> -->
+<!-- 		</aop:aspect> -->
+<!-- 	</aop:config> -->
+
+	<aop:config>
+		<aop:aspect>
+			<aop:declare-parents types-matching="spring.in.action.aop.Performer+"
+				implement-interface="spring.in.action.aop.Contestant" delegate-ref="contestant" />
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id="magician" class="spring.in.action.aop.Magician" />
+
+	<bean id="volunteer" class="spring.in.action.aop.Volunteer" />
+
+	<aop:config>
+		<aop:aspect ref="magician">
+			<aop:pointcut
+				expression="execution(* spring.in.action.aop.Thinker.thinkOfSOmething(..)) and args(thoughts)"
+				id="thinking" />
+			<aop:before pointcut-ref="thinking" method="interceptThouths"
+				arg-names="thoughts" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
